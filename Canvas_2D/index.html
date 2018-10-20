@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+
+	<style type="text/css">
+		body {
+			font-family: sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		.page-wrap {
+			padding: 50px 0;
+			background-color: #f5f5f5;
+		}
+		.page-title {
+			font-size: 46px;
+			font-weight: bold;
+			text-align: center;
+			margin-top: 0;
+			margin-bottom: 50px;
+		}
+		.sub-title {
+			font-size: 26px;
+			margin-top: 0;
+			margin-bottom: 30px;
+			padding-bottom: 20px;
+			border-bottom: 1px solid #e5e5e5;
+		}
+		.ex-name {
+			color: #b2b2b2;
+			font-size: 18px;
+		}
+		.container {
+			width: 100%;
+			max-width: 1280px;
+			margin: 0 auto;
+		}
+		.section {
+			padding: 30px 30px;
+			border-radius: 8px;
+			background-color: #ffffff;
+			margin-bottom: 40px;
+		}
+		.row {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+		}
+		.col {
+			padding: 0 15px;
+			width: 33.333%;
+			flex-basis: 33.333%;
+			box-sizing: border-box;
+		}
+		canvas {
+			border: 2px dotted #e5e5e5;
+			margin-bottom: 40px;
+		}
+	</style>
+</head>
+<body>
+	<div class="page-wrap">
+		<h1 class="page-title">Canvas 2D</h1>
+		<div class="container">
+			<section class="section">
+				<h2 class="sub-title">Rect</h2>
+				<div class="row">
+					<div class="col">
+						<p class="ex-name">Base example</p>
+						<canvas id="rect_1" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Save/Restore state</p>
+						<canvas id="rect_2" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Clear rect</p>
+						<canvas id="rect_3" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+				</div>
+			</section>
+			<script type="text/javascript">
+				window.addEventListener('load', function() {
+
+					// Rect
+					var rect1 = document.getElementById('rect_1');
+					if (rect1 && rect1.getContext) {
+						var ctx = rect1.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = '#00FFA9';
+							ctx.fillRect(20,20,100, 100);
+
+							ctx.lineWidth = 6;
+							ctx.strokeStyle = 'rgba(0,0,255,1)';
+							ctx.strokeRect(20,20,100,100);
+						}
+					}
+
+					var rect2 = document.getElementById('rect_2');
+					if (rect2 && rect2.getContext) {
+						var ctx = rect2.getContext('2d');
+						if (ctx) {
+							for (var i = 0; i < 10; i++) {
+								ctx.strokeStyle = 'red';
+								ctx.fillStyle = 'yellow';
+								ctx.lineWidth = 10;
+
+								ctx.fillRect(25,25,85,100);
+								ctx.strokeRect(25,25,85,100);
+
+								ctx.save(); // save state
+
+								ctx.strokeStyle = 'green';
+								ctx.fillStyle = 'blue';
+								ctx.lineWidth = 5;
+								
+								ctx.fillRect(140,25,85,100);
+								ctx.strokeRect(140,25,85,100);
+
+								ctx.restore(); // restore state
+
+								ctx.fillRect(255,25,85,100);
+								ctx.strokeRect(255,25,85,100);
+							}				
+						}
+					}
+
+					var rect3 = document.getElementById('rect_3');
+					if (rect3 && rect3.getContext) {
+						var ctx = rect3.getContext('2d');
+						if (ctx) {
+							ctx.strokeStyle = 'blue';
+							ctx.lineWidth = 5;
+							ctx.strokeRect(25,25,80,120);
+
+							ctx.fillStyle = 'green';
+							ctx.fillRect(130,25,80,120);
+
+							ctx.strokeStyle = 'red';
+							ctx.fillStyle = 'yellow';
+							ctx.lineWidth = 10;
+							ctx.fillRect(235,25,80,120);
+							ctx.strokeRect(235,25,80,120);
+							
+							ctx.clearRect(20,60,315,40); // clear rectangle
+						}
+					}
+				})
+			</script>
+
+
+
+			<section class="section">
+				<h2 class="sub-title">Line</h2>
+				<div class="row">
+					<div class="col">
+						<p class="ex-name">Base example</p>
+						<canvas id="line_1" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Settings for lineCap</p>
+						<canvas id="line_2" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Angle type</p>
+						<canvas id="line_3" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Open path</p>
+						<canvas id="line_4" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Close path</p>
+						<canvas id="line_5" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Fill</p>
+						<canvas id="line_6" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+				</div>
+			</section>
+			<script type="text/javascript">
+				window.addEventListener('load', function() {
+
+					// Line
+					var line1 = document.getElementById('line_1');
+					if (line1 && line1.getContext) {
+						var ctx = line1.getContext('2d');
+						if (ctx) {
+							for (var i = 0; i < 10; i++) {
+								ctx.beginPath();
+								ctx.lineWidth = i + 1;
+								ctx.moveTo(25, 25+i*15);
+								ctx.lineTo(340,25+i*15);
+								ctx.stroke();
+							}				
+						}
+					}
+
+					var line2 = document.getElementById('line_2');
+					if (line2 && line2.getContext) {
+						var ctx = line2.getContext('2d');
+						if (ctx) {
+							for (var i = 0; i < 10; i++) {
+								ctx.strokeStyle = 'cyan';
+								ctx.lineWidth = 1;
+								ctx.beginPath();
+								ctx.moveTo(50,25);
+								ctx.lineTo(50,175);
+								ctx.moveTo(330,25);
+								ctx.lineTo(330, 175);
+								ctx.stroke();
+
+								ctx.lineWidth = 25;
+								ctx.strokeStyle = 'black';
+
+								ctx.lineCap = 'butt';
+								ctx.beginPath();
+								ctx.moveTo(50,50);
+								ctx.lineTo(330,50);
+								ctx.stroke();
+
+								ctx.lineCap = 'round';
+								ctx.beginPath();
+								ctx.moveTo(50,100);
+								ctx.lineTo(330,100);
+								ctx.stroke();
+
+								ctx.lineCap = 'square';
+								ctx.beginPath();
+								ctx.moveTo(50,150);
+								ctx.lineTo(330,150);
+								ctx.stroke();	
+							}				
+						}
+					}
+
+
+					var line3 = document.getElementById('line_3');
+					if (line3 && line3.getContext) {
+						var ctx = line3.getContext('2d');
+						if (ctx) {
+							ctx.lineWidth = 15;
+							ctx.strokeStyle = '#000000';
+
+							ctx.lineJoin = 'round';
+							ctx.beginPath();
+							ctx.moveTo(20,150);
+							ctx.lineTo(60,50);
+							ctx.lineTo(100,150);
+							ctx.stroke();
+
+							ctx.lineJoin = 'bevel';
+							ctx.beginPath();
+							ctx.moveTo(140,150);
+							ctx.lineTo(180,50);
+							ctx.lineTo(220,150);
+							ctx.stroke();
+
+							ctx.lineJoin = 'miter';
+							ctx.beginPath();
+							ctx.moveTo(260,150);
+							ctx.lineTo(300,50);
+							ctx.lineTo(340,150);
+							ctx.stroke();
+						}
+					}
+
+					var line4 = document.getElementById('line_4');
+					if (line4 && line4.getContext) {
+						var ctx = line4.getContext('2d');
+						if (ctx) {
+							ctx.strokeStyle = 'blue';
+							ctx.fillStyle = 'red';
+							ctx.lineWidth = 5;
+											
+							ctx.beginPath();
+							ctx.moveTo(125,175);
+							ctx.lineTo(150,25);
+							ctx.lineTo(225,50);
+							ctx.lineTo(255,175);
+							ctx.stroke();					
+						}
+					}
+
+					var line5 = document.getElementById('line_5');
+					if (line5 && line5.getContext) {
+						var ctx = line5.getContext('2d');
+						if (ctx) {
+							ctx.strokeStyle = 'blue';
+							ctx.fillStyle = 'red';
+							ctx.lineWidth = 5;	
+
+							ctx.beginPath();
+							ctx.moveTo(125,175);
+							ctx.lineTo(150,25);
+							ctx.lineTo(225,50);
+							ctx.lineTo(255,175);
+							ctx.closePath();
+							ctx.stroke()			
+						}
+					}
+
+					var line6 = document.getElementById('line_6');
+					if (line6 && line6.getContext) {
+						var ctx = line6.getContext('2d');
+						if (ctx) {
+							ctx.strokeStyle = 'blue';
+							ctx.fillStyle = 'red';
+							ctx.lineWidth = 5;
+
+							ctx.beginPath();
+							ctx.moveTo(125,175);
+							ctx.lineTo(150,25);
+							ctx.lineTo(225,50);
+							ctx.lineTo(255,175);
+							ctx.fill();
+							ctx.stroke()
+											
+						}
+					}					
+				})
+			</script>
+
+
+
+			<section class="section">
+				<h2 class="sub-title">Arcs</h2>
+				<div class="row">
+					<div class="col">
+						<p class="ex-name">Quarter arc</p>
+						<canvas id="arcs_1" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Anti-clock</p>
+						<canvas id="arcs_2" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Fill circle</p>
+						<canvas id="arcs_3" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+				</div>
+			</section>
+			<script type="text/javascript">
+				window.addEventListener('load', function() {
+
+					// Arcs
+					var arcs1 = document.getElementById('arcs_1');
+					if (arcs1 && arcs1.getContext) {
+						var ctx = arcs1.getContext('2d');
+						if (ctx) {
+							ctx.strokeStyle = 'blue';
+							ctx.fillStyle = 'red';
+							ctx.lineWidth = 5;
+
+							ctx.beginPath();
+							ctx.arc(50,150,100,1.5*Math.PI,2*Math.PI);
+							ctx.stroke();
+											
+						}
+					}
+
+					var arcs2 = document.getElementById('arcs_2');
+					if (arcs2 && arcs2.getContext) {
+						var ctx = arcs2.getContext('2d');
+						if (ctx) {
+							ctx.strokeStyle = 'blue';
+							ctx.fillStyle = 'red';
+							ctx.lineWidth = 5;
+
+							var degrees = 243;
+							var radians = (Math.PI / 180) * degrees;
+
+							ctx.beginPath();
+							ctx.arc(200,120,100,0,radians,false);
+							ctx.stroke();				
+						}
+					}
+
+					var arcs3 = document.getElementById('arcs_3');
+					if (arcs3 && arcs3.getContext) {
+						var ctx = arcs3.getContext('2d');
+						if (ctx) {
+							ctx.strokeStyle = 'blue';
+							ctx.fillStyle = 'red';
+							ctx.lineWidth = 5;
+
+							ctx.beginPath();
+							ctx.arc(200,120,100,0,2*Math.PI);
+							ctx.fill();
+							ctx.stroke();				
+						}
+					}
+				})
+			</script>
+
+
+			<section class="section">
+				<h2 class="sub-title">Bezier quadratic</h2>
+				<div class="row">
+					<div class="col">
+						<p class="ex-name">Base example</p>
+						<canvas id="bezier_1" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Quadratic curve</p>
+						<canvas id="bezier_2" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+				</div>
+			</section>
+			<script type="text/javascript">
+				window.addEventListener('load', function() {
+
+					// Bezier quadratic
+					var bezier1 = document.getElementById('bezier_1');
+					if (bezier1 && bezier1.getContext) {
+						var ctx = bezier1.getContext('2d');
+						if (ctx) {
+							ctx.strokeStyle = 'blue';
+							ctx.lineWidth = 5;
+
+							ctx.beginPath();
+							ctx.moveTo(100,120);
+							ctx.bezierCurveTo(100,220,250,20,250,70);
+							ctx.stroke();
+
+							// control points
+							ctx.strokeStyle = 'rgba(0,0,0,.25)';
+							ctx.lineWidth = 1;
+
+							ctx.beginPath();
+							ctx.moveTo(100,120);
+							ctx.lineTo(100,220);
+							ctx.lineTo(250,20);
+							ctx.lineTo(250,70);
+							ctx.stroke();
+											
+						}
+					}
+
+					var bezier2 = document.getElementById('bezier_2');
+					if (bezier2 && bezier2.getContext) {
+						var ctx = bezier2.getContext('2d');
+						if (ctx) {
+							ctx.strokeStyle = 'green';
+							ctx.lineWidth = 5;
+
+							ctx.beginPath();
+							ctx.moveTo(100,200);
+							ctx.quadraticCurveTo(100,80,300,150);
+							ctx.stroke();
+
+							// control points
+							ctx.strokeStyle = 'rgba(0,0,0,.25)';
+							ctx.lineWidth = 1;
+
+							ctx.beginPath();
+							ctx.moveTo(100,200);
+							ctx.lineTo(100,80);
+							ctx.lineTo(300,150);
+							ctx.stroke();
+											
+						}
+					}
+
+					var bezier3 = document.getElementById('bezier_3');
+					if (bezier3 && bezier3.getContext) {
+						var ctx = bezier3.getContext('2d');
+						if (ctx) {
+										
+						}
+					}
+				})
+			</script>
+
+
+			<section class="section">
+				<h2 class="sub-title">Text</h2>
+				<div class="row">
+					<div class="col">
+						<p class="ex-name">Base example</p>
+						<canvas id="text_1" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Text style</p>
+						<canvas id="text_2" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+				</div>
+			</section>
+			<script type="text/javascript">
+				window.addEventListener('load', function() {
+
+					// Text
+					var text1 = document.getElementById('text_1');
+					if (text1 && text1.getContext) {
+						var ctx = text1.getContext('2d');
+						if (ctx) {
+							var theString = 'Drawing Text on a Canvas';
+
+							ctx.fillText(theString, 30, 40);
+
+							ctx.font = '10pt Georgia';	
+							ctx.fillText(theString, 30, 80);
+
+							ctx.font = '15pt sans-serif';	
+							ctx.fillText(theString, 30, 120);
+											
+						}
+					}
+
+					var text2 = document.getElementById('text_2');
+					if (text2 && text2.getContext) {
+						var ctx = text2.getContext('2d');
+						if (ctx) {
+							var theString = 'Drawing Text on a Canvas';	
+
+							ctx.font = '15pt sans-serif';
+							ctx.fillStyle = 'blue';	
+							ctx.fillText(theString, 30, 40);
+
+							ctx.font = '18pt Verdana';
+							ctx.fillStyle = 'yellow';
+							ctx.strokeStyle = 'rgba(0,255,0,0.6)';	
+							ctx.fillText(theString, 30, 80);
+							ctx.strokeText(theString, 30, 80);			
+						}
+					}
+				})
+			</script>
+
+			
+
+			<section class="section">
+				<h2 class="sub-title">Shadows</h2>
+				<div class="row">
+					<div class="col">
+						<p class="ex-name">Base example</p>
+						<canvas id="shadow_1" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Text shadow</p>
+						<canvas id="shadow_2" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Line shadow</p>
+						<canvas id="shadow_3" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+				</div>
+			</section>
+			<script type="text/javascript">
+				window.addEventListener('load', function() {
+
+					// Shadows
+					var shadow1 = document.getElementById('shadow_1');
+					if (shadow1 && shadow1.getContext) {
+						var ctx = shadow1.getContext('2d');
+						if (ctx) {
+							ctx.shadowColor = '#000000';
+							ctx.shadowOffsetX = 10;
+							ctx.shadowOffsetY = 10;
+							ctx.shadowBlur = 10;
+
+							ctx.fillStyle = 'rgba(0,0,255,1)';
+							ctx.fillRect(30,30,200,100);
+											
+						}
+					}
+
+					var shadow2 = document.getElementById('shadow_2');
+					if (shadow2 && shadow2.getContext) {
+						var ctx = shadow2.getContext('2d');
+						if (ctx) {
+							var theString = 'Drawing Text on a Canvas';	
+
+							ctx.shadowColor = 'rgba(0,100,100,0.5)';
+							ctx.shadowOffsetX = 5;
+							ctx.shadowOffsetY = 5;
+							ctx.shadowBlur = 5;
+
+							ctx.fillStyle = 'green';
+							ctx.font = '18pt Verdana';
+
+							ctx.fillText(theString, 30, 40);
+
+						}
+					}
+
+					var shadow3 = document.getElementById('shadow_3');
+					if (shadow3 && shadow3.getContext) {
+						var ctx = shadow3.getContext('2d');
+						if (ctx) {
+							ctx.shadowColor = 'rgba(150,0,150,0.5)';
+							ctx.shadowOffsetX = -5;
+							ctx.shadowOffsetY = -5;
+							ctx.shadowBlur = 15;
+
+							ctx.lineCap = 'round';
+							ctx.lineWidth = 20;
+							ctx.strokeStyle = 'red';
+							ctx.beginPath();
+							ctx.moveTo(50,80);
+							ctx.lineTo(320,80);
+							ctx.stroke();		
+						}
+					}
+				})
+			</script>
+
+
+			<section class="section">
+				<h2 class="sub-title">Gardients</h2>
+				<div class="row">
+					<div class="col">
+						<p class="ex-name">Linear</p>
+						<canvas id="gardient_1" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Radial</p>
+						<canvas id="gardient_2" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+				</div>
+			</section>
+			<script type="text/javascript">
+				window.addEventListener('load', function() {
+
+					// Gardients
+					var gardient1 = document.getElementById('gardient_1');
+					if (gardient1 && gardient1.getContext) {
+						var ctx = gardient1.getContext('2d');
+						if (ctx) {
+							var linGrd1 = ctx.createLinearGradient(20,20,20,160);
+
+							linGrd1.addColorStop(0,'#f00');
+							linGrd1.addColorStop(0.5,'#00f');
+							linGrd1.addColorStop(1,'#0f0');
+
+							ctx.fillStyle = linGrd1;
+							ctx.fillRect(20,20,160,160);
+							ctx.lineWidth = 3;
+							ctx.strokeRect(20,20,160,160);
+
+							var linGrd2 = ctx.createLinearGradient(200,20,360,160);
+
+							linGrd2.addColorStop(0,'#f00');
+							linGrd2.addColorStop(0.5,'#00f');
+							linGrd2.addColorStop(1,'#0f0');
+
+							ctx.fillStyle = linGrd2;
+							ctx.fillRect(200,20,160,160);
+							ctx.strokeRect(200,20,160,160);					
+						}
+					}
+
+					var gardient2 = document.getElementById('gardient_2');
+					if (gardient2 && gardient2.getContext) {
+						var ctx = gardient2.getContext('2d');
+						if (ctx) {
+							var radGrd1 = ctx.createRadialGradient(100,120,20,100,120,80);
+							radGrd1.addColorStop(0,'#f00');
+							radGrd1.addColorStop(0.5,'#00f');
+							radGrd1.addColorStop(1,'#0f0');
+							ctx.fillStyle = radGrd1;
+
+							ctx.beginPath();
+							ctx.arc(100,120,80,0,2*Math.PI);
+							ctx.stroke();
+							ctx.fill();
+
+
+							var radGrd1 = ctx.createRadialGradient(260,140,10,280,120,80);
+							radGrd1.addColorStop(0,'#f00');
+							radGrd1.addColorStop(0.5,'#00f');
+							radGrd1.addColorStop(1,'#0f0');
+							ctx.fillStyle = radGrd1;
+
+							ctx.beginPath();
+							ctx.arc(280,120,80,0,2*Math.PI);
+							ctx.stroke();
+							ctx.fill();
+						}
+					}
+				})
+			</script>
+
+
+
+			<section class="section">
+				<h2 class="sub-title">Transformations</h2>
+				<div class="row">
+					<div class="col">
+						<p class="ex-name">Translate</p>
+						<canvas id="transform_1" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Scale</p>
+						<canvas id="transform_2" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Rotate</p>
+						<canvas id="transform_3" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Custom</p>
+						<canvas id="transform_4" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+				</div>
+			</section>
+			<script type="text/javascript">
+				window.addEventListener('load', function() {
+
+					// Transformations
+					var transform1 = document.getElementById('transform_1');
+					if (transform1 && transform1.getContext) {
+						var ctx = transform1.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(0,0,100,50);
+
+							ctx.translate(ctx.canvas.width/2, ctx.canvas.height/2);
+							ctx.fillRect(0,0,100,50);				
+						}
+					}
+
+					var transform2 = document.getElementById('transform_2');
+					if (transform2 && transform2.getContext) {
+						var ctx = transform2.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(20,30,80,50);
+
+							ctx.scale(1.5, 1.5);
+							ctx.fillRect(140,30,80,50);
+						}
+					}
+
+					var transform3 = document.getElementById('transform_3');
+					if (transform3 && transform3.getContext) {
+						var ctx = transform3.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.save();
+
+							ctx.fillRect(100,30,100,50);
+							ctx.rotate(.5);
+							ctx.fillRect(100,100,100,50);
+							ctx.restore();
+								
+
+							ctx.translate(ctx.canvas.width/2, ctx.canvas.height/2);
+							var radian = (Math.PI / 180) * 20;
+							for (var dagress = 0; dagress < 360; dagress += 20) {
+								ctx.rotate(radian);
+								ctx.beginPath();
+								ctx.moveTo(-100,0);
+								ctx.lineTo(100, 0)
+								ctx.stroke();
+							}
+						}
+					}
+
+					var transform4 = document.getElementById('transform_4');
+					if (transform4 && transform4.getContext) {
+						var ctx = transform4.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(0,0,100,50);
+
+							ctx.fillStyle = 'red';
+							var tx = ctx.canvas.width / 2;
+							var ty = ctx.canvas.height / 2;
+							ctx.transform(1,0,0,1,tx,ty);
+							ctx.fillRect(50,50,100,50);
+							ctx.transform(1,0,0,1,-tx,-ty);
+
+							ctx.fillStyle = 'green';
+							var sx = 0.2;
+							var sy = 0.3;
+							ctx.transform(1,sy,sx,1,0,0);
+							ctx.fillRect(120,20,100,50);
+
+
+						}
+					}
+				})
+			</script>
+
+
+			<section class="section">
+				<h2 class="sub-title">Compositing methods</h2>
+				<div class="row">
+					<div class="col">
+						<p class="ex-name">Source over</p>
+						<canvas id="compositing_1" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Source in</p>
+						<canvas id="compositing_2" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Source out</p>
+						<canvas id="compositing_3" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Source atop</p>
+						<canvas id="compositing_4" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Lighter</p>
+						<canvas id="compositing_5" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Xor</p>
+						<canvas id="compositing_6" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Destination over</p>
+						<canvas id="compositing_7" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Destination in</p>
+						<canvas id="compositing_8" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Destination out</p>
+						<canvas id="compositing_9" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Destination atop</p>
+						<canvas id="compositing_10" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Darker</p>
+						<canvas id="compositing_11" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					<div class="col">
+						<p class="ex-name">Copy</p>
+						<canvas id="compositing_12" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+				</div>
+			</section>
+			<script type="text/javascript">
+				window.addEventListener('load', function() {
+
+					// Compositing methods
+					var compositing1 = document.getElementById('compositing_1');
+					if (compositing1 && compositing1.getContext) {
+						var ctx = compositing1.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'source-over';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);				
+						}
+					}
+
+					var compositing2 = document.getElementById('compositing_2');
+					if (compositing2 && compositing2.getContext) {
+						var ctx = compositing2.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'source-in';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);
+						}
+					}
+
+					var compositing3 = document.getElementById('compositing_3');
+					if (compositing3 && compositing3.getContext) {
+						var ctx = compositing3.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'source-out';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);
+						}
+					}
+
+					var compositing4 = document.getElementById('compositing_4');
+					if (compositing4 && compositing4.getContext) {
+						var ctx = compositing4.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'source-atop';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);
+						}
+					}
+
+					var compositing5 = document.getElementById('compositing_5');
+					if (compositing5 && compositing5.getContext) {
+						var ctx = compositing5.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'lighter';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);
+						}
+					}
+
+					var compositing6 = document.getElementById('compositing_6');
+					if (compositing6 && compositing6.getContext) {
+						var ctx = compositing6.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'xor';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);
+						}
+					}
+
+					var compositing7 = document.getElementById('compositing_7');
+					if (compositing7 && compositing7.getContext) {
+						var ctx = compositing7.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'destination-over';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);
+						}
+					}
+
+					var compositing8 = document.getElementById('compositing_8');
+					if (compositing8 && compositing8.getContext) {
+						var ctx = compositing8.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'destination-in';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);
+						}
+					}
+
+					var compositing9 = document.getElementById('compositing_9');
+					if (compositing9 && compositing9.getContext) {
+						var ctx = compositing9.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'destination-out';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);
+						}
+					}
+
+					var compositing10 = document.getElementById('compositing_10');
+					if (compositing10 && compositing10.getContext) {
+						var ctx = compositing10.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'destination-atop';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);
+						}
+					}
+
+					var compositing11 = document.getElementById('compositing_11');
+					if (compositing11 && compositing11.getContext) {
+						var ctx = compositing11.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'darker';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);
+						}
+					}
+
+					var compositing12 = document.getElementById('compositing_12');
+					if (compositing12 && compositing12.getContext) {
+						var ctx = compositing12.getContext('2d');
+						if (ctx) {
+							ctx.fillStyle = 'blue';
+							ctx.fillRect(100,50,160,100);
+							ctx.globalCompositeOperation = 'copy';
+							ctx.fillStyle = 'red';
+							ctx.fillRect(150,90,160,100);
+						}
+					}
+				})
+			</script>
+
+
+
+			<section class="section">
+				<h2 class="sub-title">Transitions</h2>
+				<div class="row">
+					<div class="col">
+						<p class="ex-name">Simple animation</p>
+						<canvas id="transition_1" class="canvas" width="380" height="240">
+							Your browser does not support canvas.
+						</canvas>
+					</div>
+					
+				</div>
+			</section>
+			<script type="text/javascript">
+				window.addEventListener('load', function() {
+
+					// Transitions
+					var rectY = 100,
+						rectW = 40,
+						rectX = -rectW,
+						canvas = null,
+						context = null;
+
+					function init() {
+						canvas = document.getElementById('transition_1');
+						context = canvas.getContext('2d');
+
+						blank();
+
+						context.fillStyle = 'yellow';
+						context.fillRect(rectX,rectY,rectW,rectW);
+
+						setInterval(anim, 10);
+					}
+
+					function blank() {
+						context.fillStyle = '#00ddee';
+						context.fillRect(0,0,context.canvas.width,context.canvas.height);
+					}
+
+					function anim() {
+						if(rectX < context.canvas.width) {
+							blank();
+							rectX +=1;
+							context.fillStyle = 'yellow';
+							context.strokeStyle = 'red';
+							context.lineWidth = 3;
+							context.fillRect(rectX,rectY,rectW,rectW);
+							context.strokeRect(rectX,rectY,rectW,rectW);
+						} else {
+							rectX = -rectW;
+						}
+					}
+
+					init();
+				})
+			</script>
+
+		</div>
+		
+	</div>
+	
+</body>
+</html>
